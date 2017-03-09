@@ -4,6 +4,7 @@ library(dplyr)
 library(curl)
 library(bbmle)
 library(HH)
+library(lattice)
 
 # Load the data
 gapminder_location = curl(url = "https://raw.githubusercontent.com/resbaz/r-novice-gapminder-files/master/data/gapminder-FiveYearData.csv")
@@ -11,13 +12,6 @@ gapminder = read.csv(gapminder_location, stringsAsFactors = FALSE)
 
 # Create a variable expressing population in millions.
 gapminder$pop_mil = gapminder$pop/1000000
-
-# Log transform the gdpPercap
-lgdpPercap <- log(gapminder$gdpPercap)
-
-# Add to lgdpPercap to data frame 
-gap2 <- cbind(gapminder,lgdpPercap)
-
 
 # Functions
 # Calculate standard error of the mean.
@@ -57,7 +51,15 @@ fit4 = lm(gapminder$lifeExp ~ log(gapminder$gdpPercap) * as.factor(gapminder$yea
 summary(fit4)
 
 AICtab(fit1, fit2, fit3, fit4)
-#yo, I might be crazy but would fit3 be ancova because it is continuous ~ continuous + categorical? 
-fit3anc= ancova(gap2$lifeExp ~ gap2$lgdpPercap + gap2$year, data.in= gap2)
 
+a1 <- coef(fit3)[1]
+b <- coef(fit3)[2]
+
+fit3anc <- predict(fit3)
+ggplot(data=cbind(gapminder, fit3anc),
+      aes(gapminder$lifeExp, gapminder$gdpPercap, color=year))+geom_point()+
+      facet_grid(.~year) + geom_line(aes(y=fit3anc))+ 
+
+
+#xyplot(gapminder$lifeExp~gapminder$gdpPercap | gapminder$year, data=gapminder)
 
