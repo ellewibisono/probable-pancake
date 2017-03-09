@@ -133,3 +133,11 @@ We created four different linear models and assessed fit with the Akaike informa
 Figure 5. 
 
 
+
+
+
+
+
+
+
+
