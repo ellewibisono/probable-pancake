@@ -134,7 +134,9 @@ We created four different linear models and assessed fit with the Akaike informa
 
 Figure 5. 
 
+##Population over time by continent  
 
+##Life expectation over time 
 
 
 
