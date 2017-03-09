@@ -1,7 +1,7 @@
 ---
 title: "Gapminder Assignment"
-author: "Elle Wibisono, Maggie Tsai, Paul Carvalho"
-date: "March 7, 2017"
+author: "Elle Wibisono, Maggie Tsai, Paul Carvalho, Xintong Guan"
+date: "March 9, 2017"
 output: pdf_document
 ---
 
@@ -126,8 +126,10 @@ fit4 = lm(gapminder$lifeExp ~ log(gapminder$gdpPercap) * as.factor(gapminder$yea
 summary(fit4)
 
 AICtab(fit1, fit2, fit3, fit4)
-
-# Elle please plot linear model for fit3
 ```
+
+We created four different linear models and assessed fit with the Akaike information criterion (AIC). The model with the best fit was an ANCOVA model which assigned the DV as LifeExpectancy, and the categorical IV as the year and the covariate as the gdpPercap. 
+
+Figure 5. 
 
 
