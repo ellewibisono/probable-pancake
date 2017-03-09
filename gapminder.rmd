@@ -128,7 +128,7 @@ summary(fit4)
 AICtab(fit1, fit2, fit3, fit4)
 ```
 
-We created four different linear models and assessed fit with the Akaike information criterion (AIC). The model with the best fit was an ANCOVA model which assigned the DV as LifeExpectancy, and the categorical IV as the year and the covariate as the gdpPercap. 
+We created four different linear models and assessed fit with the Akaike information criterion (AIC). The model with the best fit was an ANCOVA model which assigned the dependent variable as life expectancy, and the categorical independent variable as the year and the covariate as the GDP per capita. 
 
 Figure 5. 
 
