@@ -76,7 +76,7 @@ ggplot(gap1, aes(year, Mean.PopMil)) +
                      color = continent)) +
   xlab("Year") +
   ylab("Population (millions)") +
-  theme(legend.title=element_blank())
+  theme(legend.title=element_blank())+ggtitle("Figure1 Mean Life Expextancy by Continent over time")
 ```
 
 Figure 2. Mean population by continent over time (years 1952-2007). Bars indicate standard error of the mean.
@@ -91,7 +91,7 @@ ggplot(gap1, aes(year, Mean.gdpPercap)) +
                      color = continent)) +
   xlab("Year") +
   ylab("GDP per capita") +
-  theme(legend.title=element_blank())
+  theme(legend.title=element_blank())+ggtitle("Figure2 Mean Population by Continent over time")
 ```
 
 Figure 3. Mean GDP per capita by continent over time (years 1952-2007). Bars indicate standard error of the mean.
@@ -103,7 +103,7 @@ ggplot(gapminder, aes(log(gdpPercap), lifeExp)) +
        geom_point() +
        geom_smooth (method=lm, level=0.95) +
        xlab('GDP per capita (log)')+
-       ylab('Life expectancy')
+       ylab('Life expectancy')+ggtitle("Figure3 Mean GDP per capita")
 ```
 
 Figure 4. Life expectancy as a function of GDP per cap for all countries and years (1952-2007). The blue line indicates linear regression and shading indicates 95% confidence intervals.
