@@ -131,3 +131,59 @@ AICtab(fit1, fit2, fit3, fit4)
 ```
 
 
+#Xintong Guan add something to it
+
+install.packages("ggplot2")
+install.packages("plyr")
+install.packages("dplyr")
+install.packages("curl")
+library(curl)
+
+gapminder_location<-curl(url = "https://raw.githubusercontent.com/resbaz/r-novice-gapminder-files/master/data/gapminder-FiveYearData.csv")
+gapminder<-read.csv(gapminder_location)
+
+library("ggplot2")
+
+#try all possible correlation between two of these variables, and draw figure of one of the model
+
+ggplot(data=gapminder, aes(x=lifeExp, y=gdpPercap))+geom_point()+xlab("Life expectancy") + ylab("GDP per Capita")+ ggtitle("Figure 1")
+ggplot(data=gapminder, aes(x=lifeExp, y=pop))+geom_point()
+ggplot(data=gapminder, aes(x=lifeExp, y=year))+geom_point()
+ggplot(data=gapminder, aes(x=pop, y=year))+geom_point()
+ggplot(data=gapminder, aes(x=pop, y=continent))+geom_point()
+ggplot(data=gapminder, aes(x=lifeExp, y=continent))+geom_point()
+ggplot(data=gapminder, aes(x=gdpPercap, y=continent))+geom_point()
+
+ggplot(data=gapminder, aes(x=year, y=lifeExp, color=continent))+geom_point()
+ggplot(data=gapminder, aes(x=year, y=pop, color=continent))+geom_point()
+ggplot(data=gapminder, aes(x=year, y=gdpPercap, color=continent))+geom_point()
+
+#run regression of one model
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
+  geom_point() + scale_x_log10() + geom_smooth(method="lm")
+
+gapminder.lm = lm(lifeExp ~ year, data=gapminder)
+summary(gapminder.lm)
+
+gdp<-gapminder$gdpPercap * gapminder$pop
+gapminder <- cbind(gapminder, gdp)
+
+ggplot(data=gapminder, aes(x=year, y=gdp, color=continent))+geom_point()
+ggplot(data=gapminder, aes(x=lifeExp, y=gdp, color=continent))+geom_point()
+ggplot(data=gapminder, aes(x=lifeExp, y=pop, color=continent))+geom_point()
+
+ggplot(data=gapminder, aes(x=continent, y=gdp, color=year))+geom_point()
+
+ggplot(data=gapminder, aes(x=lifeExp, y=gdp, color=year))+geom_point()
+ggplot(data=gapminder, aes(x=lifeExp, y=pop, color=year))+geom_point()
+
+#subset the data by country; 
+#keep countries starting with "A" and "B"
+#add captins and descriptions
+subcountry <- substr(gapminder$country, start = 1, stop = 1)
+AB.countries <- gapminder[subcountry %in% c("A", "B"), ]
+ggplot(data = AB.countries, aes(x = year, y = lifeExp, color=continent)) +
+  geom_line() + facet_wrap( ~ country) +
+  xlab("Year") + ylab("Life expectancy") + ggtitle("Figure 2 Life Expectancy for A B country") +
+  scale_colour_discrete(name="Continent")+theme(axis.text.x=element_blank(), axis.ticks.x=element_blank())
+
