@@ -143,4 +143,148 @@ Figure 5.
 
 
 
->>>>>>> a6aac1b4528cb4177b272984340ace96fe6bda3d
+<<<<<<< HEAD
+=======
+---
+title: "Gapminder Assignment"
+author: "Elle Wibisono, Maggie Tsai, Paul Carvalho, Xintong Guan"
+date: "March 9, 2017"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.width=6, fig.height=3.5, warning=FALSE, message=FALSE)
+```
+
+## Analysis of gapminder dataset
+
+Gapminder data includes population, life expectancy, and GDP per captita for 142 countries on 5 continents. Data was collected between years 1952 and 2007.
+
+```{r gapminder, include=FALSE}
+library(ggplot2)
+library(plyr)
+library(dplyr)
+library(curl)
+library(bbmle)
+
+# Load the data
+gapminder_location = curl(url = "https://raw.githubusercontent.com/resbaz/r-novice-gapminder-files/master/data/gapminder-FiveYearData.csv")
+gapminder = read.csv(gapminder_location, stringsAsFactors = FALSE)
+
+# Create a variable expressing population in millions.
+gapminder$pop_mil = gapminder$pop/1000000
+
+# Functions
+  # Calculate standard error of the mean.
+  se = function(x){
+    std.error = sd(x)/sqrt(length(x))
+    return(std.error)
+  }
+```
+
+## Variables in relation to time and continent
+
+```{r life expectancy, echo=FALSE}
+# Split data by continent and year, then calculate the mean and standard error of the mean for life expectancy, population, and gdpPercap.
+gap1 = ddply(gapminder, c('continent','year'), function(df)c(mean(df$lifeExp),
+                                                             se(df$lifeExp),
+                                                             mean(df$pop_mil),
+                                                             se(df$pop_mil),
+                                                             mean(df$gdpPercap),
+                                                             se(df$gdpPercap)))
+colnames(gap1)[3:8] = c('Mean.LifeExp',
+                        'SE.LifeExp',
+                        'Mean.PopMil',
+                        'SE.PopMil',
+                        'Mean.gdpPercap',
+                        'SE.gdpPercap')
+
+# Plot mean life expectency (including standard error of the mean) for each continent in relation to year.
+ggplot(gap1, aes(year, Mean.LifeExp)) +
+       geom_point(aes(color=continent)) +
+       geom_line(aes(color=continent)) +
+       geom_linerange(aes(ymin=Mean.LifeExp - SE.LifeExp,
+                         ymax=Mean.LifeExp + SE.LifeExp,
+                         color = continent)) +
+       xlab("Year") +
+       ylab("Life expectancy") +
+       theme(legend.title=element_blank())
+```
+
+Figure 1. Mean life expectancy by continent over time (years 1952-2007). Bars indicate standard error of the mean.
+
+```{r population, echo=FALSE}
+# Plot mean population in millions (including standard error of the mean) for each continent in relation to year.
+ggplot(gap1, aes(year, Mean.PopMil)) +
+  geom_point(aes(color=continent)) +
+  geom_line(aes(color=continent)) +
+  geom_linerange(aes(ymin=Mean.PopMil - SE.PopMil,
+                     ymax=Mean.PopMil + SE.PopMil,
+                     color = continent)) +
+  xlab("Year") +
+  ylab("Population (millions)") +
+  theme(legend.title=element_blank())+ggtitle("Figure1 Mean Life Expextancy by Continent over time")
+```
+
+Figure 2. Mean population by continent over time (years 1952-2007). Bars indicate standard error of the mean.
+
+```{r gdp per cap, echo=FALSE}
+# Plot mean gdp per capita (including standard error of the mean) for each continent in relation to year.
+ggplot(gap1, aes(year, Mean.gdpPercap)) +
+  geom_point(aes(color=continent)) +
+  geom_line(aes(color=continent)) +
+  geom_linerange(aes(ymin=Mean.gdpPercap - SE.gdpPercap,
+                     ymax=Mean.gdpPercap + SE.gdpPercap,
+                     color = continent)) +
+  xlab("Year") +
+  ylab("GDP per capita") +
+  theme(legend.title=element_blank())+ggtitle("Figure2 Mean Population by Continent over time")
+```
+
+Figure 3. Mean GDP per capita by continent over time (years 1952-2007). Bars indicate standard error of the mean.
+
+## Life expectancy and GDP per capita
+
+```{r lifeExp as a function of gdpPercap, echo=FALSE}
+ggplot(gapminder, aes(log(gdpPercap), lifeExp)) +
+       geom_point() +
+       geom_smooth (method=lm, level=0.95) +
+       xlab('GDP per capita (log)')+
+       ylab('Life expectancy')+ggtitle("Figure3 Mean GDP per capita")
+```
+
+Figure 4. Life expectancy as a function of GDP per cap for all countries and years (1952-2007). The blue line indicates linear regression and shading indicates 95% confidence intervals.
+
+Linear regression: lifeExp = [8.4 * log(gdpPercap)] - 9.1  
+R-squared: 0.65
+
+```{r lifeExp as a function of gdpPercap models, echo=FALSE, include=FALSE}
+# Linear Models
+fit1 = lm(gapminder$lifeExp ~ log(gapminder$gdpPercap))
+summary(fit1)
+
+fit2 = lm(gapminder$lifeExp ~ log(gapminder$gdpPercap) + gapminder$continent)
+summary(fit2)
+
+fit3 = lm(gapminder$lifeExp ~ log(gapminder$gdpPercap) + as.factor(gapminder$year))
+summary(fit3)
+
+fit4 = lm(gapminder$lifeExp ~ log(gapminder$gdpPercap) * as.factor(gapminder$year))
+summary(fit4)
+
+AICtab(fit1, fit2, fit3, fit4)
+```
+
+We created four different linear models and assessed fit with the Akaike information criterion (AIC). The model with the best fit was an ANCOVA model which assigned the dependent variable as life expectancy, and the categorical independent variable as the year and the covariate as the GDP per capita. 
+
+Figure 5. 
+
+
+
+
+
+
+
+
+
+
