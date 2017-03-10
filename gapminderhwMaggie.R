@@ -1,4 +1,4 @@
-#Maggie's R script
+#Maggie R Script
 library(ggplot2)
 library(plyr)
 library(dplyr)
@@ -43,8 +43,13 @@ ggplot(gap1, aes(x = continent, y = Mean.LifeExp)) +
 
 #One-Way Analysis of variance conducted to assess if life expectancies for all years significantly differed by continent
 
-aov1 = lm(gap1$Mean.LifeExp ~ gap1$continent)
+aov1 = aov(gap1$Mean.LifeExp ~ gap1$continent)
 summary(aov1)
 
-#Results show omnibus significance with medium to large effect size of continent on life expectancy
+#Results show omnibus significance p<.001 with medium to large effect size of continent on life expectancy
+
+#Post-hoc test multiple comparisons with Tukey HSD, alpha = 0.05
+TukeyHSD(aov1)
+
+#Non-significant contrasts: Asia-Americas, Europe-Americas, Oceania-Europe, alpha = 0,05
 
