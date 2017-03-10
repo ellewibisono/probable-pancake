@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 ---
 title: "Gapminder Assignment"
 author: "Elle Wibisono, Maggie Tsai, Paul Carvalho"
@@ -140,17 +141,10 @@ fit3anc <- predict(fit3)
 ggplot(data=cbind(gapminder, fit3anc),
       aes(gapminder$lifeExp, log(gapminder$gdpPercap), color=year))+
       geom_point()+
-      facet_wrap(~year, ncol = 3)+ 
+      facet_wrap(~year, ncol = 3, color= "lightgreen")+ 
       geom_smooth(method='lm') + xlab("Life Expectancy") + 
       ylab("log GDP per Capita")
 ```
 Figure 5. Life expectancy as a function of GDP per capita, with year as a factor. A line was fitted for each year. Based on the model chosen by the Akaike Information Criterion (AIC), GDP per capita is a predictor, with each subsequent year significantly different from that of year 1957. 
-
-
-
-
-
-
-
 
 
