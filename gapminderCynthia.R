@@ -3,7 +3,7 @@
 ---
 title: "Gapminder Assignment"
 author: "Elle Wibisono, Maggie Tsai, Paul Carvalho, Xintong Guan"
-date: "March 9, 2017"
+date: "March 10, 2017"
 output: pdf_document
 ---
 
