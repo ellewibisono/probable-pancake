@@ -70,6 +70,12 @@ ggplot(gap1, aes(year, Mean.LifeExp)) +
        xlab("Year") +
        ylab("Life expectancy") +
        theme(legend.title=element_blank())
+
+#run regression to see p value and significance
+ggplot(data=gapminder, aes(x=year, y=lifeExp))+geom_point()+geom_smooth(method=lm)
+summary(lm(lifeExp~year))
+
+
 ```
 
 Figure 1. Mean life expectancy by continent over time (years 1952-2007). Bars i$
@@ -86,6 +92,12 @@ ggplot(gap1, aes(year, Mean.PopMil)) +
   xlab("Year") +
   ylab("Population (millions)") +
   theme(legend.title=element_blank())+ggtitle("Figure1 Mean Life Expextancy by $
+
+
+#run regression to see p value and significance
+ggplot(data=gapminder, aes(x=year, y=pop))+geom_point()+geom_smooth(method=lm)
+summary(lm(pop~year))
+
 ```
 
 Figure 2. Mean population by continent over time (years 1952-2007). Bars indica$
