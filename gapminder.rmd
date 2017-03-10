@@ -2,7 +2,7 @@
 ---
 title: "Gapminder Assignment"
 author: "Elle Wibisono, Maggie Tsai, Paul Carvalho, Xintong Guan"
-date: "March 7, 2017"
+date: "March 10, 2017"
 output: pdf_document
 ---
 
@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE, fig.width=6, fig.height=3.5, warning=FALSE, m
 
 ## Analysis of gapminder dataset
 
-Gapminder data includes population, life expectancy, and GDP per captita for 142 countries on 5 continents. Data was collected between years 1952 and 2007.
+Gapminder data includes population, life expectancy, and GDP per capita for 142 countries on 5 continents. Data was collected between years 1952 and 2007.
 
 ```{r gapminder, include=FALSE}
 library(ggplot2)
@@ -62,10 +62,23 @@ ggplot(gap1, aes(year, Mean.LifeExp)) +
                          color = continent)) +
        xlab("Year") +
        ylab("Life expectancy") +
-       theme(legend.title=element_blank())
+       theme(legend.title=element_blank())+ ggtitle("Figure 1a. Mean Life Expectancy by Continent")
+
 ```
 
-Figure 1. Mean life expectancy by continent over time (years 1952-2007). Bars indicate standard error of the mean.
+```{r life expectancy regression, echo=FALSE}
+#Regression plot for life expectancy and year
+#run regression to see p value and significance
+ggplot(data=gapminder, aes(x=year, y=lifeExp))+geom_point()+geom_smooth(method=lm)+ ggtitle ("Figure 1b. Regression model for life expectancy by year")+ 
+  xlab("Year") +
+  ylab("Life Expectancies")
+```
+
+```{r life expectancy regression summary stats, echo=FALSE, include=FALSE}
+
+summary(lm(gapminder$lifeExp~gapminder$year)) 
+```
+Figure 1a. Mean life expectancy by continent over time (years 1952-2007). Bars indicate standard error of the mean. Regression model for life expectancy by year. Life expectancy was significantly predicted by year p<0.001, with a large effect R2 = 0.19. 
 
 ```{r population, echo=FALSE}
 # Plot mean population in millions (including standard error of the mean) for each continent in relation to year.
@@ -80,7 +93,17 @@ ggplot(gap1, aes(year, Mean.PopMil)) +
   theme(legend.title=element_blank())
 ```
 
-Figure 2. Mean population by continent over time (years 1952-2007). Bars indicate standard error of the mean.
+```{r population regression, echo=FALSE}
+#run regression to see p value and significance
+ggplot(data=gapminder, aes(x=year, y=pop))+geom_point()+geom_smooth(method=lm)+ ggtitle ("Figure 1b. Regression model for population by year")+
+  xlab("Year") +
+  ylab("Population (millions)")
+```
+
+```{r population summary statistics, echo=FALSE, include=FALSE}
+summary(lm(gapminder$pop~gapminder$year))
+```
+Figure 2a. Mean population by continent over time (years 1952-2007). Bars indicate standard error of the mean.Regression model for population by year. Population in millions was significantly predicted by year p<0.001, with a minimal effect R2 = 0.006.
 
 ```{r gdp per cap, echo=FALSE}
 # Plot mean gdp per capita (including standard error of the mean) for each continent in relation to year.
@@ -92,7 +115,7 @@ ggplot(gap1, aes(year, Mean.gdpPercap)) +
                      color = continent)) +
   xlab("Year") +
   ylab("GDP per capita") +
-  theme(legend.title=element_blank())
+  theme(legend.title=element_blank())+ggtitle("Figure 2. Mean Population by Continent")
 ```
 
 Figure 3. Mean GDP per capita by continent over time (years 1952-2007). Bars indicate standard error of the mean.
@@ -104,7 +127,7 @@ ggplot(gapminder, aes(log(gdpPercap), lifeExp)) +
        geom_point() +
        geom_smooth (method=lm, level=0.95) +
        xlab('GDP per capita (log)')+
-       ylab('Life expectancy')
+       ylab('Life expectancy')+ ggtitle("Figure 3. Mean GDP per capita")
 ```
 
 Figure 4. Life expectancy as a function of GDP per cap for all countries and years (1952-2007). The blue line indicates linear regression and shading indicates 95% confidence intervals.
@@ -139,7 +162,56 @@ ggplot(data=cbind(gapminder, fit3anc),
       aes(gapminder$lifeExp, log(gapminder$gdpPercap), color=year))+
       geom_point()+
       facet_wrap(~year, ncol = 3)+ 
-      geom_smooth(method='lm', color= "lightgreen") + xlab("Life Expectancy") + 
-      ylab("log GDP per Capita")
+      geom_smooth(method='lm', color= "lightgreen") + xlab('Life Expectancy') + 
+      ylab('log GDP per Capita')
 ```
 Figure 5. Life expectancy as a function of GDP per capita, with year as a factor. A line was fitted for each year. Based on the model chosen by the Akaike Information Criterion (AIC), GDP per capita is a predictor, with each subsequent year significantly different from that of year 1957. 
+## Life Expectancy and Population
+
+```{r lifeExp as a function of population in millions, echo=FALSE}
+
+# Population and Life Expectancy 
+ggplot(gap1, aes(log(Mean.PopMil), Mean.LifeExp)) +
+  geom_point(aes(color=continent)) +
+  geom_smooth (method=lm, level=0.95) +
+  xlab('Mean Population in Millions (log)')+
+  ylab('Mean Life expectancy')
+```
+
+```{r lifeExp as a function of population regression summary stats, echo=FALSE, include=FALSE}
+#Life expectancy as a function of population 
+
+LC1 = lm(gap1$Mean.LifeExp ~ log(gap1$Mean.PopMil))
+summary(LC1)
+#No significance between IV Population in Millions and DV Life Expectancy, p=0.389
+```
+
+Figure 6. Life expectancy as a function of population in millions. A linear model was fitted for the data. Population in millions did not significantly predict life expectancy p=0.389
+
+## Life Expectancy and Continent
+
+```{r life expectancy and continent boxplots, echo=FALSE}
+
+# Life Expectancy and Continent boxplots
+
+ggplot(gap1, aes(x = continent, y = Mean.LifeExp)) +
+  geom_boxplot(fill = "skyblue2", colour = "dimgray") +
+  scale_x_discrete() + xlab("Continent") +
+  ylab("Mean Life Expectancy")
+```
+
+```{r life expectancy and continent, echo=FALSE, include=FALSE}
+#One-Way Analysis of variance conducted to assess if life expectancies for all years significantly differed by continent
+
+aov1 = aov(gap1$Mean.LifeExp ~ gap1$continent)
+summary(aov1)
+
+#Results show omnibus significance p<.001 with medium to large effect size of continent on life expectancy
+
+#Post-hoc test multiple comparisons with Tukey HSD, alpha = 0.05
+
+TukeyHSD(aov1)
+
+#Non-significant contrasts: Asia-Americas, Oceania-Europe, alpha = 0.05
+```
+Figure 7. Boxplots for life expectancy per continent by the mean of all years and countries. A one-way analysis of variance was conducted, which revealed significant differences in life expectancy between continents p<001. Post-hoc TukeyHSD test showed that most comparisons of life expectancy between continents were significant. However, Asia did not significantly differ from America p=0.322, and Oceania did not significantly differ from Asia.  
