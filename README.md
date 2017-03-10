@@ -14,7 +14,7 @@ What we need:
  6. Include R-squared and p-values as necessary to support relationships. These should be written in text not output as raw results.
  7. Format text and results appropriately including headers and inline code.
 
-yFiles included in probable_pancake
+ Files included in probable_pancake
 
  File 1: README.md - file descriptions and team notes 
 
