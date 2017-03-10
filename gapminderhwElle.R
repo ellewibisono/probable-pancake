@@ -57,10 +57,13 @@ b <- coef(fit3)[2]
 
 fit3anc <- predict(fit3)
 ggplot(data=cbind(gapminder, fit3anc),
-      aes(gapminder$lifeExp, log(gapminder$gdpPercap), color=year))+geom_point()+
-      facet_grid(.~year) + geom_smooth(method='lm') 
-  
+      aes(gapminder$lifeExp, log(gapminder$gdpPercap), color=year))+
+      geom_point()+
+      facet_grid(.~year)+ 
+      geom_smooth(method='lm') + xlab("Life Expectancy") + 
+      ylab("log GDP per Capita")
 
+    
 
 #xyplot(gapminder$lifeExp~gapminder$gdpPercap | gapminder$year, data=gapminder)
 
