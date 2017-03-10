@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 ---
 title: "Gapminder Assignment"
 author: "Elle Wibisono, Maggie Tsai, Paul Carvalho"
