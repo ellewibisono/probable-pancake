@@ -66,6 +66,8 @@ ggplot(gap1, aes(year, Mean.LifeExp)) +
 
 ```
 
+Figure 1a. Mean life expectancy by continent over time (years 1952-2007). Bars indicate standard error of the mean.
+
 ```{r life expectancy regression, echo=FALSE}
 #Regression plot for life expectancy and year
 #run regression to see p value and significance
@@ -73,12 +75,13 @@ ggplot(data=gapminder, aes(x=year, y=lifeExp))+geom_point()+geom_smooth(method=l
   xlab("Year") +
   ylab("Life Expectancies")
 ```
+ 
+Figure 1b. Regression model for life expectancy by year. Life expectancy was significantly predicted by year p<0.001, with a large effect R2 = 0.19. 
 
 ```{r life expectancy regression summary stats, echo=FALSE, include=FALSE}
 
 summary(lm(gapminder$lifeExp~gapminder$year)) 
 ```
-Figure 1a. Mean life expectancy by continent over time (years 1952-2007). Bars indicate standard error of the mean. Regression model for life expectancy by year. Life expectancy was significantly predicted by year p<0.001, with a large effect R2 = 0.19. 
 
 ```{r population, echo=FALSE}
 # Plot mean population in millions (including standard error of the mean) for each continent in relation to year.
@@ -93,17 +96,19 @@ ggplot(gap1, aes(year, Mean.PopMil)) +
   theme(legend.title=element_blank())
 ```
 
+Figure 2a. Mean population by continent over time (years 1952-2007). Bars indicate standard error of the mean.
+
 ```{r population regression, echo=FALSE}
 #run regression to see p value and significance
 ggplot(data=gapminder, aes(x=year, y=pop))+geom_point()+geom_smooth(method=lm)+ ggtitle ("Figure 1b. Regression model for population by year")+
   xlab("Year") +
   ylab("Population (millions)")
 ```
+Figure 2b. Regression model for population by year. Population in millions was significantly predicted by year p<0.001, with a minimal effect R2 = 0.006.
 
 ```{r population summary statistics, echo=FALSE, include=FALSE}
 summary(lm(gapminder$pop~gapminder$year))
 ```
-Figure 2a. Mean population by continent over time (years 1952-2007). Bars indicate standard error of the mean.Regression model for population by year. Population in millions was significantly predicted by year p<0.001, with a minimal effect R2 = 0.006.
 
 ```{r gdp per cap, echo=FALSE}
 # Plot mean gdp per capita (including standard error of the mean) for each continent in relation to year.
