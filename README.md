@@ -15,8 +15,8 @@ What we need:
  7. Format text and results appropriately including headers and inline code.
 
 Files included in probable_pancake
-File 1: README.md - file descriptions and team notes
-File 2: gapminder.rmd - completed R markdown file to be submitted for homework
-File 3: gapminderhwElle.R - R script contributed by Elle
-File 4: gapminderhwCynthia.R - R script contributed by Cynthia
-File 5: gapminderhwMaggie.R - R script contributed by Maggie
+ File 1: README.md - file descriptions and team notes 
+ File 2: gapminder.rmd - completed R markdown file to be submitted for homework 
+ File 3: gapminderhwElle.R - R script contributed by Elle 
+ File 4: gapminderhwCynthia.R - R script contributed by Cynthia 
+ File 5: gapminderhwMaggie.R - R script contributed by Maggie 
