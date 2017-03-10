@@ -3,7 +3,7 @@
 ---
 title: "Gapminder Assignment"
 author: "Elle Wibisono, Maggie Tsai, Paul Carvalho, Xintong Guan"
-date: "March 9, 2017"
+date: "March 10, 2017"
 output: pdf_document
 ---
 
@@ -69,7 +69,7 @@ ggplot(gap1, aes(year, Mean.LifeExp)) +
                          color = continent)) +
        xlab("Year") +
        ylab("Life expectancy") +
-       theme(legend.title=element_blank())
+       theme(legend.title=element_blank())+ggtitle("Life Expectancy")
 
 #run regression to see p value and significance
 ggplot(data=gapminder, aes(x=year, y=lifeExp))+geom_point()+geom_smooth(method=lm)
