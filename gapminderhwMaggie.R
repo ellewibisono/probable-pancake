@@ -1,4 +1,5 @@
-#Maggie R Script
+#Maggie R script
+
 library(ggplot2)
 library(plyr)
 library(dplyr)
@@ -34,8 +35,20 @@ colnames(gap1)[3:8] = c('Mean.LifeExp',
                         'Mean.gdpPercap',
                         'SE.gdpPercap')
 
-# Life Expectancy and Continent 
+# Population and Life Expectancy 
+ggplot(gap1, aes(log(Mean.PopMil), Mean.LifeExp)) +
+  geom_point(aes(color=continent)) +
+  geom_smooth (method=lm, level=0.95) +
+  xlab('Mean Population in Millions (log)')+
+  ylab('Mean Life expectancy')
 
+#Life expectancy as a function of population 
+
+LC1 = lm(gap1$Mean.LifeExp ~ log(gap1$Mean.PopMil))
+summary(LC1)
+#No significance between IV Population in Millions and DV Life Expectancy, p=0.389
+
+# Life Expectancy and Continent 
 ggplot(gap1, aes(x = continent, y = Mean.LifeExp)) +
   geom_boxplot(fill = "skyblue2", colour = "dimgray") +
   scale_x_discrete() + xlab("Continent") +
@@ -51,5 +64,4 @@ summary(aov1)
 #Post-hoc test multiple comparisons with Tukey HSD, alpha = 0.05
 TukeyHSD(aov1)
 
-#Non-significant contrasts: Asia-Americas, Europe-Americas, Oceania-Europe, alpha = 0,05
-
+#Non-significant contrasts: Asia-Americas, Europe-Americas, Oceania-Europe, alpha = 0.05
