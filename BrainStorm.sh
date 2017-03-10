@@ -4,7 +4,7 @@ Welcome to Team Pancakes!
 
 #Maggie: Should I look at does GDP predict life-expectancy? Guys, these are the instructions from Sakai. 
 #What we need:
-# 1. Load the data
+# 1. Load the data — DONE 
 # 2. Contain plots that illustrate relationships between variables and cases where relationships do not exist
 # 3. Contain plots with data divided by category as needed
 # 4. Include captions and descriptions of plots
