@@ -219,4 +219,4 @@ TukeyHSD(aov1)
 
 #Non-significant contrasts: Asia-Americas, Oceania-Europe, alpha = 0.05
 ```
-Figure 7. Boxplots for life expectancy per continent by the mean of all years and countries. A one-way analysis of variance was conducted, which revealed significant differences in life expectancy between continents p<001. Post-hoc TukeyHSD test showed that most comparisons of life expectancy between continents were significant. However, Asia did not significantly differ from America p=0.322, and Oceania did not significantly differ from Asia.  
+Figure 7. Boxplots for life expectancy per continent by the mean of all years and countries. A one-way analysis of variance was conducted, which revealed significant differences in life expectancy between continents p<.001 Post-hoc TukeyHSD test showed that most comparisons of life expectancy between continents were significant. However, Asia did not significantly differ from America p=0.322, and Oceania did not significantly differ from Europe p=0.85.
